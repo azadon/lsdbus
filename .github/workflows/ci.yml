@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        LUA_VERSION: [ '5.1', '5.2', '5.3', '5.4', 'jit' ]
+        lua-version: [ '5.1', '5.2', '5.3', '5.4', 'jit' ]
 
     steps:
       - name: Checkout code
@@ -20,20 +20,20 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y dbus default-dbus-session-bus default-dbus-system-bus libsystemd0 libsystemd-dev
           sudo apt-get install -y cmake lua-unit lua-posix libmxml1 libmxml-dev lua-compat53-dev
-          if [ "${LUA_VERSION}" = "jit" ]; then
+          if [ "${{ matrix.lua-version }}" = "jit" ]; then
             sudo apt-get install -y luajit libluajit-5.1-dev
           else
-            sudo apt-get install -y lua${LUA_VERSION} liblua${LUA_VERSION}-dev
+            sudo apt-get install -y lua${{ matrix.lua-version }} liblua${{ matrix.lua-version }}-dev
           fi
 
       - name: Build
         run: |
-          mkdir build-${LUA_VERSION}
-          cd build-${LUA_VERSION}
-          cmake -DCONFIG_LUA_VER=${LUA_VERSION} ..
+          mkdir build-${{ matrix.lua-version }}
+          cd build-${{ matrix.lua-version }}
+          cmake -DCONFIG_LUA_VER=${{ matrix.lua-version }} ..
           make
 
       - name: Test
         run: |
-          cd build-${LUA_VERSION}
-          dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n test-output-${LUA_VERSION}
+          cd build-${{ matrix.lua-version }}
+          dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n test-output-${{ matrix.lua-version }}
