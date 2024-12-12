@@ -37,6 +37,3 @@ jobs:
         run: |
           cd build-${LUA_VERSION}
           dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n test-output-${LUA_VERSION}
-        artifacts:
-          reports:
-            junit: test-output-${LUA_VERSION}
