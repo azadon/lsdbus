@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: gcc:bookworm
     strategy:
       matrix:
         lua-version: [ '5.1', '5.2', '5.3', '5.4', 'jit' ]
@@ -20,11 +20,8 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y dbus default-dbus-session-bus default-dbus-system-bus libsystemd0 libsystemd-dev
           sudo apt-get install -y cmake lua-unit lua-posix libmxml1 libmxml-dev lua-compat53-dev
-          if [ "${{ matrix.lua-version }}" = "jit" ]; then
-            sudo apt-get install -y luajit libluajit-5.1-dev
-          else
-            sudo apt-get install -y lua${{ matrix.lua-version }} liblua${{ matrix.lua-version }}-dev
-          fi
+          sudo apt-get install -y luajit libluajit-5.1-dev
+          sudo apt-get install -y lua5.1 liblua5.1-dev lua5.2 liblua5.2-dev lua5.3 liblua5.3-dev lua5.4 liblua5.4-dev
 
       - name: Build
         run: |
@@ -45,4 +42,4 @@ jobs:
           printenv
           sudo ls -lR /usr/share/lua/
           mkdir junit
-          sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
+          sudo dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
