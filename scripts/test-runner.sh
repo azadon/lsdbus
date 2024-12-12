@@ -3,7 +3,9 @@
 # Run the tests for the Lua version specified in LUA_VERSION
 # This will
 
-echo "lua-version is $LUA_VERSION"
+echo "**********************"
+printenv
+echo "----------------------"
 
 # Set defaults for LUA_VERSION and REPEAT
 LUA_VERSION="${LUA_VERSION:-5.4}"

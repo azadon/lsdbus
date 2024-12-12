@@ -37,10 +37,9 @@ jobs:
           echo "LUA_VERSION=${{ matrix.lua-version }}" >> "$GITHUB_ENV"
           sudo cp scripts/dbus-test.conf /etc/dbus-1/system.d/
           sudo /etc/init.d/dbus reload
-          printenv
           sudo ln -vsf /usr/share/lua/5.{3,4} 
           sudo ls -l /usr/share/lua/
-          sudo scripts/test-runner.sh -r 3 -o junit -n test-results-${{ matrix.lua-version }}
+          ./scripts/test-runner.sh -r 3 -o junit -n test-results-${{ matrix.lua-version }}
       - name: Publish Test Report
         uses: actions/upload-artifact@v2
         if: success() || failure() # always run even if the previous step fails
