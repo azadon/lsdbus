@@ -42,5 +42,6 @@ jobs:
           echo "LUA_VERSION=${{ matrix.lua-version }}" >> $GITHUB_ENV
           sudo cp scripts/dbus-test.conf /etc/dbus-1/system.d/
           sudo /etc/init.d/dbus reload
+          sudo ls -lR /usr/share/lua/
           mkdir junit
           sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
