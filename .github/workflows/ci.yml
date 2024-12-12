@@ -36,9 +36,10 @@ jobs:
           lua${{ matrix.lua-version }} -v -l lsdbus -e "print[[PASS]]"
 
       - name: Test
+        env:
+          LUA_VERSION: ${{ matrix.lua-version }}
         run: |
           sudo cp scripts/dbus-test.conf /etc/dbus-1/system.d/
           sudo /etc/init.d/dbus reload
           mkdir junit
-          export LUA_VERSION=${{ matrix.lua-version }}
           sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
