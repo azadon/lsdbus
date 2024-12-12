@@ -7,6 +7,7 @@ echo "**********************"
 printenv
 echo "----------------------"
 
+echo "runnig with lua version $LUA_VERSION"
 # Set defaults for LUA_VERSION and REPEAT
 LUA_VERSION="${LUA_VERSION:-5.4}"
 
