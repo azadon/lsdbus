@@ -40,5 +40,4 @@ jobs:
           printenv
           sudo ln -vsf /usr/share/lua/5.{3,4} 
           sudo ls -l /usr/share/lua/
-          mkdir junit
-          sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
+          sudo scripts/test-runner.sh -r 3 -o junit -n test-results-${{ matrix.lua-version }}
