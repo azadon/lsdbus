@@ -32,8 +32,10 @@ jobs:
           cd build-${{ matrix.lua-version }}
           cmake -DCONFIG_LUA_VER=${{ matrix.lua-version }} ..
           make
+          make install
+          lua${{ matrix.lua-version }} -v -l lsdbus -e "print[[PASS]]"
 
       - name: Test
         run: |
-          cd build-${{ matrix.lua-version }}
-          dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n test-output-${{ matrix.lua-version }}
+          mkdir junit
+          dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
