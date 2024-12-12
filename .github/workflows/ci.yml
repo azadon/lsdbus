@@ -38,4 +38,4 @@ jobs:
       - name: Test
         run: |
           mkdir junit
-          LUA_VERSION=${{ matrix.lua-version }} scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
+          LUA_VERSION=${{ matrix.lua-version }} sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
