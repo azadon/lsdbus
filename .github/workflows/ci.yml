@@ -38,4 +38,4 @@ jobs:
       - name: Test
         run: |
           mkdir junit
-          dbus-run-session --config-file scripts/dbus-test.conf -- scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
+          scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
