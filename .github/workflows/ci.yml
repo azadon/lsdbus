@@ -37,5 +37,8 @@ jobs:
 
       - name: Test
         run: |
+          sudo cp scripts/dbus-test.conf /etc/dbus-1/system.d/
+          sudo /etc/init.d/dbus reload
           mkdir junit
-          LUA_VERSION=${{ matrix.lua-version }} sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
+          export LUA_VERSION=${{ matrix.lua-version }}
+          sudo scripts/test-runner.sh -r 3 -o junit -n junit/test-results-${{ matrix.lua-version }}
